@@ -4,6 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                echo "Building"
                 // sh label: "npm install", script: "npm i"
             }
         }
@@ -24,7 +25,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Test') {
             steps {
                 echo 'Testing..'
