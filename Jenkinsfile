@@ -5,7 +5,6 @@ pipeline {
         stage('Build') {
             steps {
                 echo "Building"
-                // sh label: "npm install", script: "npm i"
             }
         }
 
@@ -29,8 +28,9 @@ pipeline {
         stage("Owasp ZAP") {
             steps {
                 sh label: "Installl ZAP", script: '''
+                ls
                 wget https://github.com/zaproxy/zaproxy/releases/download/v2.14.0/ZAP_2.14.0_Linux.tar.gz
-                tar -xf *.tar.*
+                tar -xf *.tar.gz
                 '''
 
                 sh label: "Start application", script: "npm install && npm start"
