@@ -30,7 +30,7 @@ pipeline {
             steps {
                 sh label: "Installl ZAP", script: '''
                 wget https://github.com/zaproxy/zaproxy/releases/download/v2.14.0/ZAP_2.14.0_Linux.tar.gz
-                tar -xf *.tar
+                tar -xf *.tar.*
                 '''
 
                 sh label: "Start application", script: "npm install && npm start"
