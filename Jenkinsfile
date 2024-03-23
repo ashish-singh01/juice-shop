@@ -26,6 +26,33 @@ pipeline {
             }
         }
 
+        stage("Owasp ZAP") {
+            steps {
+                sh label: "Installl ZAP", script: '''
+                wget https://github.com/zaproxy/zaproxy/releases/download/v2.14.0/ZAP_2.14.0_Linux.tar.gz
+                tar -xf *.tar
+                '''
+
+                sh label: "Start application", script: "npm install && npm start"
+
+                sh label: "Perform ZAP test", script: "./ZAP_2.14.0/zap.sh -quickurl 'http://localhost:3000' -quickprogress -quickout ${WORKSPACE}/report.xml -cmd"
+            }
+
+            post {
+                success {
+                    archiveArtifacts artifacts: 'report.xml', fingerprint: true
+                    publishHTML(target: [
+                        allowMissing: false,
+                        alwaysLinkToLastBuild: false,
+                        reportDir: '',
+                        keepAll: true,
+                        reportFiles: 'report.xml',
+                        reportName: "ZAP Report"
+                    ])
+                }
+            }
+        }
+
         stage('Test') {
             steps {
                 echo 'Testing..'
