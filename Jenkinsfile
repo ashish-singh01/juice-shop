@@ -36,7 +36,7 @@ pipeline {
                 // sh label: "Start application", script: "npm install && npm run serve"
                 sh label: "Start application", script: '''
                 docker build . -t juice-shop -f ./Dockerfile
-                docker run juice-shop
+                docker run -p 3000:3000 juice-shop
                 '''
 
 
