@@ -57,7 +57,7 @@ pipeline {
                 }
                 always {
                     steps {
-                        def containers = sh returnStdout: true, script: "docker ps -a -q"
+                        containers = sh returnStdout: true, script: "docker ps -a -q"
                         sh """
                         docker stop ${containers}
                         docker rm ${containers}
