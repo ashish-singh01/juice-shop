@@ -33,7 +33,12 @@ pipeline {
                 wget https://github.com/zaproxy/zaproxy/releases/download/v2.14.0/ZAP_2.14.0_Linux.tar.gz
                 tar -xf *.tar.gz
                 '''
-                sh label: "Start application", script: "npm install && npm run serve"
+                // sh label: "Start application", script: "npm install && npm run serve"
+                sh label: "Start application", script: '''
+                docker build . -t juice-shop -f ./Dockerfile
+                docker run juice-shop
+                '''
+
 
                 sh label: "Perform ZAP test", script: "./ZAP_2.14.0/zap.sh -quickurl 'http://localhost:3000' -quickprogress -quickout ${WORKSPACE}/report.xml -cmd"
             }
