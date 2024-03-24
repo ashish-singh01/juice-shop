@@ -40,7 +40,7 @@ pipeline {
                 '''
 
 
-                sh label: "Perform ZAP test", script: "./ZAP_2.14.0/zap.sh -quickurl 'http://localhost:3000' -quickprogress -quickout ${WORKSPACE}/report.xml -cmd"
+                sh label: "Perform ZAP test", script: "./ZAP_2.14.0/zap.sh -quickurl 'http://localhost:3000' -port 8088 -quickprogress -quickout ${WORKSPACE}/report.xml -cmd"
             }
 
             post {
