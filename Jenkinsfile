@@ -2,9 +2,10 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Clean Checkout') {
             steps {
-                echo "Building"
+                cleanWs()
+                checkout scm
             }
         }
 
